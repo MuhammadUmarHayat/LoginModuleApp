@@ -73,27 +73,20 @@ public class User_Table extends SQLiteOpenHelper
         db.close();
 
     }
-    public boolean checkUserExist(String email, String password)
-    {
+    public boolean checkUserExist(String email, String password) {
         SQLiteDatabase db = this.getReadableDatabase(); // Use getReadableDatabase() since we're only reading data
         String sql = "SELECT * FROM UserTable WHERE email = ? AND password = ?";
 
         // Use a prepared statement to execute the query
-        SQLiteStatement statement = db.compileStatement(sql);
-        statement.bindString(1, email); // Bind values to placeholders
-        statement.bindString(2, password);
-
-        // Execute the statement
-        Cursor res = db.rawQuery(sql, null);
+        Cursor res = db.rawQuery(sql, new String[]{email, password});
 
         int count = res.getCount();
 
         // Close the cursor and the database connection
         res.close();
-        statement.close();
         db.close();
 
-        return count > 0;
+        return count > 0;//true or false
     }
     public boolean checkEmailExist(String email)
     {
