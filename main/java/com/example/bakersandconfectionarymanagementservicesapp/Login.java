@@ -41,9 +41,9 @@ User_Table userTable;
         captchaInputEditText=findViewById(R.id.captchaInputEditText);
         captchaImageView=findViewById(R.id.captchaImageView);
 // Generate and display captcha image
-        generatedCaptcha = generateCaptcha();
-        Bitmap captchaBitmap = generateCaptchaBitmap(generatedCaptcha);
-        captchaImageView.setImageBitmap(captchaBitmap);
+        generatedCaptcha = generateCaptcha();// return string
+        Bitmap captchaBitmap = generateCaptchaBitmap(generatedCaptcha);//convert string into image
+        captchaImageView.setImageBitmap(captchaBitmap);//display image
 
         user=new Users();
         userTable=new User_Table(this);
@@ -59,9 +59,10 @@ User_Table userTable;
                 {
                     // Captcha validation successful
                    // Toast.makeText(Login.this, "Captcha Validation Successful!", Toast.LENGTH_SHORT).show();
-String s="Captcha Validation Successful!";
+
 
                    try{
+                       String s="Captcha Validation Successful!";
                        tv1.setText(s);
                        login();
                    }
@@ -131,6 +132,7 @@ String s="Captcha Validation Successful!";
         String email = etEmail.getText().toString().trim();
         String password=etPw.getText().toString().trim();
 
+
         // Check if email is empty
         if (email.isEmpty()||password.isEmpty() )
         {
@@ -139,13 +141,13 @@ String s="Captcha Validation Successful!";
         else if (isValidEmail(email))
         {
             // Email is valid
-
-if(userTable.checkUserExist(email,password))
+if(userTable.checkUserExist(email,password))//authenticate the use
 {
-
+    String s=" login Successful!";
+    tv1.setText(s);
     tv1.setText("User has been login successfully");
-    Intent intent = new Intent(Login.this, MainActivity.class);
-    startActivity(intent);//go to new activity
+   Intent intent = new Intent(Login.this, MainActivity.class);
+   startActivity(intent);//go to new activity
 }
         }
         else {
